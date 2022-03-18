@@ -13,6 +13,12 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   $AssetsImagesLoginRegisterScreenGen get loginRegisterScreen => const $AssetsImagesLoginRegisterScreenGen();
+
+  /// File path: assets/images/logo_horizontal_white.svg
+  SvgGenImage get logoHorizontalWhite => const SvgGenImage('assets/images/logo_horizontal_white.svg');
+
+  /// File path: assets/images/welcome_icon.svg
+  SvgGenImage get welcomeIcon => const SvgGenImage('assets/images/welcome_icon.svg');
 }
 
 class $AssetsImagesLoginRegisterScreenGen {
@@ -27,15 +33,8 @@ class $AssetsImagesLoginRegisterScreenGen {
   /// File path: assets/images/login_register_screen/login_top_right.svg
   SvgGenImage get loginTopRight => const SvgGenImage('assets/images/login_register_screen/login_top_right.svg');
 
-  /// File path: assets/images/login_register_screen/logo_horizontal_white.svg
-  SvgGenImage get logoHorizontalWhite =>
-      const SvgGenImage('assets/images/login_register_screen/logo_horizontal_white.svg');
-
   /// File path: assets/images/login_register_screen/show_icon.svg
   SvgGenImage get showIcon => const SvgGenImage('assets/images/login_register_screen/show_icon.svg');
-
-  /// File path: assets/images/login_register_screen/welcome_icon.svg
-  SvgGenImage get welcomeIcon => const SvgGenImage('assets/images/login_register_screen/welcome_icon.svg');
 }
 
 class Assets {
