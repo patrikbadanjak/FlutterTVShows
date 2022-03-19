@@ -9,12 +9,12 @@ class LoginRegisterInteractorImpl implements LoginRegisterInteractor {
   final AuthRepository _authRepository;
 
   @override
-  Future<bool> loginUser(String email, String password) {
-    return _authRepository.loginUser(email, password);
+  Future<bool> loginUser(String email, String password) async {
+    return await _authRepository.loginUser(email, password);
   }
 
   @override
-  Future<bool> registerUser(String email, String password) {
-    return _authRepository.registerUser(email, password);
+  Future<bool> registerUser(String email, String password) async {
+    return await _authRepository.registerUser(email, password);
   }
 }
