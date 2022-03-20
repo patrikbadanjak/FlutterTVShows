@@ -40,6 +40,7 @@ class TVShowsTheme {
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
         titleTextStyle: lightTextTheme.headline1,
+        elevation: 0.0,
       ),
       scaffoldBackgroundColor: Colors.white,
       inputDecorationTheme: const InputDecorationTheme(
@@ -76,6 +77,18 @@ class TVShowsTheme {
           elevation: MaterialStateProperty.all(0.0),
           alignment: Alignment.center,
           textStyle: MaterialStateProperty.all(lightTextTheme.button),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+          ),
+          padding: MaterialStateProperty.all(
+            const EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
+          ),
         ),
       ),
     );
