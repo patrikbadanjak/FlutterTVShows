@@ -9,7 +9,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListenableProvider(
+    return ChangeNotifierProvider(
       create: (context) => LoginScreenProvider(),
       child: Scaffold(
         body: Container(
