@@ -6,9 +6,41 @@
 // ignore_for_file: directives_ordering,unnecessary_import
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
+
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  $AssetsImagesLoginRegisterScreenGen get loginRegisterScreen => const $AssetsImagesLoginRegisterScreenGen();
+
+  /// File path: assets/images/logo_horizontal_white.svg
+  SvgGenImage get logoHorizontalWhite => const SvgGenImage('assets/images/logo_horizontal_white.svg');
+
+  /// File path: assets/images/welcome_icon.svg
+  SvgGenImage get welcomeIcon => const SvgGenImage('assets/images/welcome_icon.svg');
+}
+
+class $AssetsImagesLoginRegisterScreenGen {
+  const $AssetsImagesLoginRegisterScreenGen();
+
+  /// File path: assets/images/login_register_screen/hide_icon.svg
+  SvgGenImage get hideIcon => const SvgGenImage('assets/images/login_register_screen/hide_icon.svg');
+
+  /// File path: assets/images/login_register_screen/login_top_left.svg
+  SvgGenImage get loginTopLeft => const SvgGenImage('assets/images/login_register_screen/login_top_left.svg');
+
+  /// File path: assets/images/login_register_screen/login_top_right.svg
+  SvgGenImage get loginTopRight => const SvgGenImage('assets/images/login_register_screen/login_top_right.svg');
+
+  /// File path: assets/images/login_register_screen/show_icon.svg
+  SvgGenImage get showIcon => const SvgGenImage('assets/images/login_register_screen/show_icon.svg');
+}
 
 class Assets {
   Assets._();
+
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage extends AssetImage {
@@ -58,4 +90,53 @@ class AssetGenImage extends AssetImage {
   }
 
   String get path => assetName;
+}
+
+class SvgGenImage {
+  const SvgGenImage(this._assetName);
+
+  final String _assetName;
+
+  SvgPicture svg({
+    Key? key,
+    bool matchTextDirection = false,
+    AssetBundle? bundle,
+    String? package,
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.contain,
+    AlignmentGeometry alignment = Alignment.center,
+    bool allowDrawingOutsideViewBox = false,
+    WidgetBuilder? placeholderBuilder,
+    Color? color,
+    BlendMode colorBlendMode = BlendMode.srcIn,
+    String? semanticsLabel,
+    bool excludeFromSemantics = false,
+    Clip clipBehavior = Clip.hardEdge,
+    bool cacheColorFilter = false,
+    SvgTheme? theme,
+  }) {
+    return SvgPicture.asset(
+      _assetName,
+      key: key,
+      matchTextDirection: matchTextDirection,
+      bundle: bundle,
+      package: package,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
+      placeholderBuilder: placeholderBuilder,
+      color: color,
+      colorBlendMode: colorBlendMode,
+      semanticsLabel: semanticsLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      clipBehavior: clipBehavior,
+      cacheColorFilter: cacheColorFilter,
+      theme: theme,
+    );
+  }
+
+  String get path => _assetName;
 }

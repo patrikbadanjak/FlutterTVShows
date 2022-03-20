@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tv_shows/ui/login_register/screens/login_screen.dart';
+import 'package:tv_shows/ui/tv_shows_theme.dart';
 
 void main() {
   runApp(const TVShowsApp());
@@ -10,11 +12,9 @@ class TVShowsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
-      home: Container(color: Colors.deepPurpleAccent),
+      title: 'TV Shows',
+      theme: TVShowsTheme.light(),
+      home: const LoginScreen(),
     );
   }
 }
