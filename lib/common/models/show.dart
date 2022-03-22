@@ -24,14 +24,16 @@ class Show {
     ),
     Show(
       name: 'Stranger Things',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+      description:
+          'In 1980s Indiana, a group of young friends witness supernatural forces and secret government exploits. As they search for answers, the children unravel a series of extraordinary mysteries.',
       numOfReviews: 3,
-      averageRating: 4.8,
+      averageRating: 4.0,
       imageUrl: 'assets/images/shows/stranger_things.png',
     ),
     Show(
       name: 'The Office',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+      description:
+          'The Office is an American mockumentary sitcom television series that depicts the everyday work lives of office employees in the Scranton, Pennsylvania, branch of the fictional Dunder Mifflin Paper Company. It aired on NBC from March 24, 2005, to May 16, 2013, lasting a total of nine seasons.',
       numOfReviews: 0,
       averageRating: 0.0,
       imageUrl: 'assets/images/shows/ured.png',
