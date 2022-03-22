@@ -8,6 +8,11 @@ class TVShowsTheme {
       fontWeight: FontWeight.w700,
       color: const Color(0xDE000000),
     ),
+    headline5: GoogleFonts.roboto(
+      fontSize: 24.0,
+      fontWeight: FontWeight.w700,
+      color: const Color(0xDE000000),
+    ),
     headline6: GoogleFonts.roboto(
       fontSize: 20.0,
       fontWeight: FontWeight.w500,
@@ -37,6 +42,7 @@ class TVShowsTheme {
       primaryColorDark: const Color(0xFF3D1D72),
       brightness: Brightness.light,
       appBarTheme: AppBarTheme(
+        toolbarHeight: 75.0,
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
         titleTextStyle: lightTextTheme.headline1,
