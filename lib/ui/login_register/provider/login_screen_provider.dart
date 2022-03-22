@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tv_shows/domain/login_register_interactor/login_register_interactor.dart';
 import 'package:tv_shows/domain/login_register_interactor/login_register_interactor_impl.dart';
-import 'package:tv_shows/ui/welcome/screens/welcome_screen.dart';
+import 'package:tv_shows/ui/welcome_screen.dart';
 
 class LoginScreenProvider extends ChangeNotifier {
   LoginScreenProvider() : _loginRegisterInteractor = LoginRegisterInteractorImpl();
