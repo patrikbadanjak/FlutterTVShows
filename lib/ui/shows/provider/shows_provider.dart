@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tv_shows/common/models/models.dart';
+import 'package:tv_shows/common/models/show.dart';
 
 class ShowsProvider extends ChangeNotifier {
   bool _showsHidden = false;

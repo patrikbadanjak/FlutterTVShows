@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tv_shows/common/models/models.dart';
+import 'package:tv_shows/common/models/review.dart';
 import 'package:tv_shows/gen/assets.gen.dart';
 
 import 'review_list_item_rating.dart';

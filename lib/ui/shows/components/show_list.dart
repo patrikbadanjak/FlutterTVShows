@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tv_shows/common/models/show.dart';
 import 'package:tv_shows/gen/assets.gen.dart';
 import 'package:tv_shows/ui/shows/components/components.dart';
 import 'package:tv_shows/ui/shows/provider/shows_provider.dart';
 
-import '../../../common/models/models.dart';
+import '../../../common/models/show.dart';
 import '../../show_details/screens/show_details_screen.dart';
 
 class ShowList extends StatelessWidget {

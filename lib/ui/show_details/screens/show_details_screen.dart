@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tv_shows/common/models/models.dart';
+import 'package:tv_shows/common/models/review.dart';
 import 'package:tv_shows/ui/shows/provider/shows_provider.dart';
 
 import '../components/show_reviews.dart';

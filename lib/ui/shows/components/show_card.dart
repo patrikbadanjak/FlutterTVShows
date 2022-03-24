@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tv_shows/common/models/models.dart';
+import 'package:tv_shows/common/models/show.dart';
 
 import '../../../common/models/show.dart';
 
@@ -13,18 +13,19 @@ class ShowCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 320.0,
       child: GestureDetector(
         onTap: onTap,
         child: Card(
           elevation: 10.0,
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Flexible(
                 flex: 2,
                 child: Container(
+                  height: 200,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(6.0),
