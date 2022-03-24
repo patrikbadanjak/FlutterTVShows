@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tv_shows/common/models/models.dart';
+import 'package:tv_shows/common/models/show.dart';
 
 import '../../../common/models/show.dart';
 

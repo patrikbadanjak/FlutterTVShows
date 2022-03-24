@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tv_shows/ui/show_details/components/review_list_item.dart';
 
-import '../../../common/models/models.dart';
+import '../../../common/models/review.dart';
 import 'show_rating.dart';
 
 class ShowReviews extends StatelessWidget {
