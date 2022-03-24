@@ -12,10 +12,15 @@ import 'package:flutter/services.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/ic_profile_placeholder.png
+  AssetGenImage get icProfilePlaceholder => const AssetGenImage('assets/images/ic_profile_placeholder.png');
+
   $AssetsImagesLoginRegisterScreenGen get loginRegisterScreen => const $AssetsImagesLoginRegisterScreenGen();
 
   /// File path: assets/images/logo_horizontal_white.svg
   SvgGenImage get logoHorizontalWhite => const SvgGenImage('assets/images/logo_horizontal_white.svg');
+
+  $AssetsImagesShowsGen get shows => const $AssetsImagesShowsGen();
 
   /// File path: assets/images/welcome_icon.svg
   SvgGenImage get welcomeIcon => const SvgGenImage('assets/images/welcome_icon.svg');
@@ -35,6 +40,25 @@ class $AssetsImagesLoginRegisterScreenGen {
 
   /// File path: assets/images/login_register_screen/show_icon.svg
   SvgGenImage get showIcon => const SvgGenImage('assets/images/login_register_screen/show_icon.svg');
+}
+
+class $AssetsImagesShowsGen {
+  const $AssetsImagesShowsGen();
+
+  /// File path: assets/images/shows/blood_aint_water.png
+  AssetGenImage get bloodAintWater => const AssetGenImage('assets/images/shows/blood_aint_water.png');
+
+  /// File path: assets/images/shows/ic_shows_empty_state.svg
+  SvgGenImage get icShowsEmptyState => const SvgGenImage('assets/images/shows/ic_shows_empty_state.svg');
+
+  /// File path: assets/images/shows/stranger_things.png
+  AssetGenImage get strangerThings => const AssetGenImage('assets/images/shows/stranger_things.png');
+
+  /// File path: assets/images/shows/the_sopranos.jpg
+  AssetGenImage get theSopranos => const AssetGenImage('assets/images/shows/the_sopranos.jpg');
+
+  /// File path: assets/images/shows/ured.png
+  AssetGenImage get ured => const AssetGenImage('assets/images/shows/ured.png');
 }
 
 class Assets {

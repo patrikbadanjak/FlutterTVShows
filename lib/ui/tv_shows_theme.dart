@@ -8,6 +8,11 @@ class TVShowsTheme {
       fontWeight: FontWeight.w700,
       color: const Color(0xDE000000),
     ),
+    headline5: GoogleFonts.roboto(
+      fontSize: 24.0,
+      fontWeight: FontWeight.w700,
+      color: const Color(0xDE000000),
+    ),
     headline6: GoogleFonts.roboto(
       fontSize: 20.0,
       fontWeight: FontWeight.w500,
@@ -37,9 +42,11 @@ class TVShowsTheme {
       primaryColorDark: const Color(0xFF3D1D72),
       brightness: Brightness.light,
       appBarTheme: AppBarTheme(
+        toolbarHeight: 75.0,
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
         titleTextStyle: lightTextTheme.headline1,
+        elevation: 0.0,
       ),
       scaffoldBackgroundColor: Colors.white,
       inputDecorationTheme: const InputDecorationTheme(
@@ -76,6 +83,18 @@ class TVShowsTheme {
           elevation: MaterialStateProperty.all(0.0),
           alignment: Alignment.center,
           textStyle: MaterialStateProperty.all(lightTextTheme.button),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+          ),
+          padding: MaterialStateProperty.all(
+            const EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
+          ),
         ),
       ),
     );
