@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tv_shows/common/utility/state/request_provider.dart';
 import 'package:tv_shows/domain/interactor/login_register_interactor/login_register_interactor.dart';
-import 'package:tv_shows/domain/interactor/login_register_interactor/login_register_interactor_impl.dart';
-import 'package:tv_shows/ui/welcome_screen.dart';
 
-class LoginScreenProvider extends ChangeNotifier {
-  LoginScreenProvider() : _loginRegisterInteractor = LoginRegisterInteractorImpl();
+import '../../../common/models/user.dart';
+
+class LoginScreenProvider extends RequestProvider<User> {
+  LoginScreenProvider(this._loginRegisterInteractor);
 
   final LoginRegisterInteractor _loginRegisterInteractor;
 
@@ -16,6 +17,12 @@ class LoginScreenProvider extends ChangeNotifier {
   String _email = '';
   String _password = '';
   bool _formValid = false;
+  String _errorMessage = '';
+
+  String get email => _email;
+
+  String get errorMessage => _errorMessage;
+  set errorMessage(String value) => _errorMessage = value;
 
   bool get formValid => _formValid;
 
@@ -38,22 +45,15 @@ class LoginScreenProvider extends ChangeNotifier {
     super.dispose();
   }
 
-  Future<void> onLoginPressed(BuildContext context) async {
+  Future<User?> onLoginPressed() async {
     if (_formValid) {
-      var loginUserResult = await _loginRegisterInteractor.loginUser(_email, _password);
-      if (loginUserResult == true) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) {
-              return WelcomeScreen(email: _email);
-            },
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid login info')),
-        );
+      try {
+        return await _loginRegisterInteractor.loginUser(_email, _password);
+      } on Exception catch (e) {
+        _errorMessage = e.toString();
+        notifyListeners();
       }
     }
+    return null;
   }
 }
