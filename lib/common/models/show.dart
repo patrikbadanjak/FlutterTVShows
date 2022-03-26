@@ -1,11 +1,21 @@
 class Show {
+  int id;
+
+  @JsonKey(name: 'title')
   String name;
   String description;
+
+  @JsonKey(name: 'no_of_reviews')
   int numOfReviews;
+
+  @JsonKey(name: 'average_rating')
   double averageRating;
-  String imageUrl;
+
+  @JsonKey(name: 'image_url')
+  String? imageUrl;
 
   Show({
+    required this.id,
     required this.name,
     required this.description,
     required this.numOfReviews,
