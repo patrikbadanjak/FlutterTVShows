@@ -12,5 +12,5 @@ Show _$ShowFromJson(Map<String, dynamic> json) => Show(
       description: json['description'] as String,
       numOfReviews: json['no_of_reviews'] as int,
       averageRating: (json['average_rating'] as num).toDouble(),
-      imageUrl: json['image_url'] as String?,
+      imageUrl: json['image_url'] as String,
     );

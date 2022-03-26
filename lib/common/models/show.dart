@@ -18,7 +18,7 @@ class Show {
   double averageRating;
 
   @JsonKey(name: 'image_url')
-  String? imageUrl;
+  String imageUrl;
 
   Show({
     required this.id,
