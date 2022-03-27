@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tv_shows/common/models/show.dart';
+import 'package:tv_shows/common/utility/state/request_provider.dart';
+import 'package:tv_shows/source_remote/shows/shows_repository.dart';
 
-class ShowsProvider extends ChangeNotifier {
+class ShowsProvider extends RequestProvider<Show> {
+  ShowsProvider(this.repository);
+
+  ShowsRepository repository;
+
   bool _showsHidden = false;
   bool get showsHidden => _showsHidden;
 
