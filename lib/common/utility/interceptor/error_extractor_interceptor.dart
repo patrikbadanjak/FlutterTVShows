@@ -7,6 +7,7 @@ class ErrorExtractorInterceptor extends Interceptor {
     if (data is! Map<String, dynamic>) {
       super.onError(err, handler);
     }
+
     final errors = data['errors'];
     if (errors is! List) {
       super.onError(err, handler);
