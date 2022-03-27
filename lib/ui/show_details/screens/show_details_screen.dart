@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tv_shows/common/models/review.dart';
 import 'package:tv_shows/ui/shows/provider/shows_provider.dart';
 
 import '../components/show_reviews.dart';
@@ -38,7 +37,7 @@ class ShowDetailsScreen extends StatelessWidget {
                             height: 250.0,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(show.imageUrl),
+                                image: Image.network(show.imageUrl).image,
                                 fit: BoxFit.fill,
                               ),
                               borderRadius: BorderRadius.circular(10.0),
@@ -50,9 +49,7 @@ class ShowDetailsScreen extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                           const SizedBox(height: 20.0),
-                          ShowReviews(
-                            reviews: show.numOfReviews == 0 ? List<Review>.empty() : Review.allReviews,
-                          ),
+                          const ShowReviews(),
                         ],
                       ),
                     ),
