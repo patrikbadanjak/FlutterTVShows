@@ -15,8 +15,6 @@ class AuthRepositoryImpl implements AuthRepository {
       ),
     );
 
-    final authInfoHolder = AuthInfoHolder();
-
     final authInfoInterceptor = AuthInfoInterceptor(authInfoHolder);
     final errorExtractorInterceptor = ErrorExtractorInterceptor();
 
