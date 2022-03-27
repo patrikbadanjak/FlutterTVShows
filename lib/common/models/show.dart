@@ -4,6 +4,7 @@ part 'show.g.dart';
 
 @JsonSerializable(createToJson: false)
 class Show {
+  @JsonKey(fromJson: _stringToInt)
   int id;
 
   @JsonKey(name: 'title')
@@ -30,4 +31,6 @@ class Show {
   });
 
   factory Show.fromJson(Map<String, dynamic> json) => _$ShowFromJson(json);
+
+  static int _stringToInt(String number) => number.isEmpty ? -1 : int.parse(number);
 }

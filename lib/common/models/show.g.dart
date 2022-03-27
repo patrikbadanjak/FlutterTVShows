@@ -7,7 +7,7 @@ part of 'show.dart';
 // **************************************************************************
 
 Show _$ShowFromJson(Map<String, dynamic> json) => Show(
-      id: json['id'] as int,
+      id: Show._stringToInt(json['id'] as String),
       name: json['title'] as String,
       description: json['description'] as String,
       numOfReviews: json['no_of_reviews'] as int,
