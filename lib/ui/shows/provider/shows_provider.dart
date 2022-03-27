@@ -15,6 +15,9 @@ class ShowsProvider extends RequestProvider<Show> {
 
   Show? get selectedShow => _selectedShow;
 
+  String _errorMessage = '';
+  String get errorMessage => _errorMessage;
+
   void toggleShowsHidden() {
     _showsHidden = !_showsHidden;
     notifyListeners();
