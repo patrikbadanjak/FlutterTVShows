@@ -27,10 +27,14 @@ class ShowsProvider extends RequestProvider<Show> {
     _selectedShow = show;
   }
 
-  Future<List<Show>> get shows async {
-    return Future.delayed(
-      const Duration(seconds: 1),
-      () => _showsHidden ? List<Show>.empty() : Show.allShows,
-    );
+  Future<List<Show>?> get shows async {
+    try {
+      return await repository.getShows();
+    } on Exception catch (e) {
+      _errorMessage = e.toString();
+      notifyListeners();
+    }
+
+    return null;
   }
 }
