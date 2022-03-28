@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tv_shows/ui/show_details/components/review_list_item.dart';
-import 'package:tv_shows/ui/shows/provider/shows_provider.dart';
+import 'package:tv_shows/ui/show_details/provider/review_provider.dart';
 
 import '../../../common/models/review.dart';
 import 'show_rating.dart';
@@ -11,7 +11,7 @@ class ShowReviews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ShowsProvider>(
+    return Consumer<ReviewProvider>(
       builder: (context, provider, child) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -22,19 +22,24 @@ class ShowReviews extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           FutureBuilder(
-            future: provider.reviews,
+            future: provider.getReviewsForShow(),
             builder: (context, AsyncSnapshot<List<Review>?> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const ShowRating(),
+                      ShowRating(averageRating: provider.show.averageRating, numOfReviews: provider.show.numOfReviews),
                       ListView.separated(
                         primary: false,
                         shrinkWrap: true,
-                        itemBuilder: (context, index) => ReviewListItem(
-                            key: Key(snapshot.data![index].id.toString()), review: snapshot.data![index]),
+                        itemBuilder: (context, index) {
+                          final Review review = snapshot.data![index];
+                          return ReviewListItem(
+                            key: Key(review.id.toString()),
+                            review: review,
+                          );
+                        },
                         separatorBuilder: (context, index) => const Divider(
                           indent: 10.0,
                           endIndent: 10.0,
