@@ -62,12 +62,12 @@ class ShowList extends StatelessWidget {
                     key: Key(snapshot.data![index].id.toString()),
                     show: snapshot.data![index],
                     onTap: () {
-                      provider.onShowClicked(snapshot.data![index]);
+                      final Show show = snapshot.data![index];
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return const ShowDetailsScreen();
+                            return ShowDetailsScreen(show: show);
                           },
                         ),
                       );
@@ -90,56 +90,6 @@ class ShowList extends StatelessWidget {
           },
         );
       },
-    );
-  }
-
-  Widget _buildList(BuildContext context, AsyncSnapshot<List<Show>?> snapshot, ShowsProvider provider) {
-    return ListView.separated(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.all(20.0),
-      itemBuilder: (context, index) => ShowCard(
-        key: Key(snapshot.data![index].id.toString()),
-        show: snapshot.data![index],
-        onTap: () {
-          provider.onShowClicked(snapshot.data![index]);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return const ShowDetailsScreen();
-              },
-            ),
-          );
-        },
-      ),
-      separatorBuilder: (context, index) => const SizedBox(
-        height: 16.0,
-      ),
-      itemCount: snapshot.data?.length ?? 0,
-    );
-  }
-
-  Widget _buildEmptyScreenPlaceholder(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Assets.images.shows.icShowsEmptyState.svg(),
-          const SizedBox(height: 26.0),
-          Text(
-            'Your shows are not showing. Get it?',
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                  color: const Color(0xFF808080),
-                ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildErrorMessage(BuildContext context, String message) {
-    return Center(
-      child: Text('Error: $message'),
     );
   }
 }
