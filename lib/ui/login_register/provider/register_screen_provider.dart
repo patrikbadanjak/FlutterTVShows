@@ -33,23 +33,10 @@ class RegisterScreenProvider extends RequestProvider<User> {
     notifyListeners();
   }
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  Future<User?> onRegisterPressed() async {
+  Future<void> onRegisterPressed() async {
     if (_formValid) {
-      try {
-        return await _loginRegisterInteractor.registerUser(_email, _password);
-      } on Exception catch (e) {
-        _errorMessage = e.toString();
-        notifyListeners();
-      }
+      await executeRequest(requestBuilder: () async => await _authRepository.registerUser(_email, _password));
     }
-
-    return null;
+    reset();
   }
 }
