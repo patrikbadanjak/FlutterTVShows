@@ -15,11 +15,11 @@ class ShowsRepositoryImpl implements ShowsRepository {
     );
 
     final authInfoInterceptor = AuthInfoInterceptor(authInfoHolder);
-    final errorExctractorInterceptor = ErrorExtractorInterceptor();
+    final errorExtractorInterceptor = ErrorExtractorInterceptor();
 
     _dio.interceptors.addAll([
       authInfoInterceptor,
-      errorExctractorInterceptor,
+      errorExtractorInterceptor,
     ]);
   }
 
