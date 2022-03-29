@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tv_shows/domain/interactor/login_register_interactor/login_register_interactor.dart';
+import 'package:tv_shows/domain/interactor/login_register_interactor/login_register_interactor_impl.dart';
+import 'package:tv_shows/source_remote/auth/auth_repository.dart';
 import 'package:tv_shows/ui/login_register/screens/base_login_screen.dart';
 
 import '../components/register_form.dart';
@@ -11,9 +13,20 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<RegisterScreenProvider>(
-      create: (context) => RegisterScreenProvider(context.read<LoginRegisterInteractor>()),
-      builder: (context, child) => const BaseLoginScreen(form: RegisterForm()),
+    return MultiProvider(
+      providers: [
+        Provider<LoginRegisterInteractor>(
+          create: (_) => LoginRegisterInteractorImpl(
+            context.read<AuthRepository>(),
+          ),
+        ),
+        ChangeNotifierProvider<RegisterScreenProvider>(
+          create: (ctx) => RegisterScreenProvider(
+            ctx.read<LoginRegisterInteractor>(),
+          ),
+        ),
+      ],
+      child: const BaseLoginScreen(form: RegisterForm()),
     );
   }
 }
