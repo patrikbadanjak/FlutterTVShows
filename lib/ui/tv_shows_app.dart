@@ -21,9 +21,15 @@ class TVShowsApp extends StatelessWidget {
         Provider<AuthRepository>(
           create: (context) => AuthRepositoryImpl(context.read<AuthInfoHolder>()),
         ),
-        Provider<ShowsRepository>(create: (context) => ShowsRepositoryImpl(context.read<AuthInfoHolder>())),
+        Provider<ShowsRepository>(
+          create: (context) => ShowsRepositoryImpl(
+            context.read<AuthInfoHolder>(),
+          ),
+        ),
         ChangeNotifierProvider<ShowsProvider>(
-          create: (context) => ShowsProvider(context.read<ShowsRepository>()),
+          create: (context) => ShowsProvider(
+            context.read<ShowsRepository>(),
+          ),
         ),
       ],
       child: MaterialApp(
