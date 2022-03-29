@@ -16,6 +16,27 @@ class ShowDetailsScreen extends StatelessWidget {
 
   final Show show;
 
+  void _showSuccessSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Review submitted successfully',
+          style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.white),
+        ),
+        action: SnackBarAction(
+          label: 'Ok',
+          textColor: Colors.white,
+          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+        ),
+        duration: const Duration(
+          seconds: 2,
+        ),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ReviewProvider>(
@@ -77,9 +98,7 @@ class ShowDetailsScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(24.0),
                 child: ElevatedButton(
                   child: const Text('Write a Review'),
-                  onPressed: () {
-                    showReviews(providerContext);
-                  },
+                  onPressed: () async => await showReviews(providerContext),
                 ),
               ),
             ),
@@ -89,9 +108,10 @@ class ShowDetailsScreen extends StatelessWidget {
     );
   }
 
-  void showReviews(BuildContext context) {
-    showModalBottomSheet(
+  Future<void> showReviews(BuildContext context) async {
+    var result = await showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       isDismissible: true,
       builder: (context2) => _buildReviewsBottomSheet(context),
       shape: const RoundedRectangleBorder(
@@ -101,6 +121,10 @@ class ShowDetailsScreen extends StatelessWidget {
         ),
       ),
     );
+
+    if (result is bool && result == true) {
+      _showSuccessSnackbar(context);
+    }
   }
 
   Widget _buildReviewsBottomSheet(BuildContext context) {
