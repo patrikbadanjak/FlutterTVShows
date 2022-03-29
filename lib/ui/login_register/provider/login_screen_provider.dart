@@ -11,19 +11,12 @@ class LoginScreenProvider extends RequestProvider<User> {
 
   final formKey = GlobalKey<FormState>();
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
   String _email = '';
-  String _password = '';
-  bool _formValid = false;
-  String _errorMessage = '';
-
   String get email => _email;
 
-  String get errorMessage => _errorMessage;
-  set errorMessage(String value) => _errorMessage = value;
+  String _password = '';
 
+  bool _formValid = false;
   bool get formValid => _formValid;
 
   void updateEmail(String email) {
@@ -38,22 +31,12 @@ class LoginScreenProvider extends RequestProvider<User> {
     notifyListeners();
   }
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  Future<User?> onLoginPressed() async {
+  Future<void> onLoginPressed() async {
     if (_formValid) {
-      try {
-        return await _loginRegisterInteractor.loginUser(_email, _password);
-      } on Exception catch (e) {
-        _errorMessage = e.toString();
-        notifyListeners();
-      }
+      await executeRequest(
+        requestBuilder: () async => await _authRepository.loginUser(_email, _password),
+      );
     }
-    return null;
+    reset();
   }
 }
