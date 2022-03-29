@@ -1,74 +1,112 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tv_shows/ui/shows/provider/shows_provider.dart';
+import 'package:tv_shows/source_remote/shows/shows_repository.dart';
+import 'package:tv_shows/ui/show_details/provider/review_provider.dart';
+import 'package:tv_shows/ui/show_details/screens/write_review_screen.dart';
 
+import '../../../common/models/show.dart';
 import '../components/show_reviews.dart';
 
 class ShowDetailsScreen extends StatelessWidget {
-  const ShowDetailsScreen({Key? key}) : super(key: key);
+  const ShowDetailsScreen({
+    Key? key,
+    required this.show,
+  }) : super(key: key);
+
+  final Show show;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Consumer<ShowsProvider>(
-        builder: (context, provider, child) {
-          final show = provider.selectedShow;
-          return CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                elevation: 10.0,
-                pinned: true,
-                expandedHeight: 120.0,
-                titleTextStyle: Theme.of(context).textTheme.headline5,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text(show!.name),
-                  expandedTitleScale: 1.5,
-                ),
-              ),
-              SliverList(
-                delegate: SliverChildListDelegate.fixed(
-                  [
-                    Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 250.0,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: Image.network(show.imageUrl).image,
-                                fit: BoxFit.fill,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          const SizedBox(height: 20.0),
-                          Text(
-                            show.description,
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          const SizedBox(height: 20.0),
-                          const ShowReviews(),
-                        ],
-                      ),
+    return ChangeNotifierProvider<ReviewProvider>(
+      create: (_) => ReviewProvider(context.read<ShowsRepository>(), show: show),
+      child: Builder(
+        builder: (providerContext) {
+          return Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  elevation: 10.0,
+                  pinned: true,
+                  stretch: true,
+                  backgroundColor: const Color(0xFF979797),
+                  iconTheme: const IconThemeData(color: Colors.white),
+                  expandedHeight: 220.0,
+                  titleTextStyle: Theme.of(context).textTheme.headline5,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: CachedNetworkImage(
+                      imageUrl: show.imageUrl,
+                      fit: BoxFit.cover,
                     ),
-                  ],
+                    title: Text(
+                      show.name,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    expandedTitleScale: 1.7,
+                    stretchModes: const [
+                      StretchMode.zoomBackground,
+                      StretchMode.blurBackground,
+                    ],
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildListDelegate.fixed(
+                    [
+                      Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 20.0),
+                            Text(
+                              show.description,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            const SizedBox(height: 20.0),
+                            const ShowReviews(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            bottomNavigationBar: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: ElevatedButton(
+                  child: const Text('Write a Review'),
+                  onPressed: () {
+                    showReviews(providerContext);
+                  },
                 ),
               ),
-            ],
+            ),
           );
         },
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: ElevatedButton(
-            child: const Text('Write a Review'),
-            onPressed: () {},
-          ),
+    );
+  }
+
+  void showReviews(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isDismissible: true,
+      builder: (context2) => _buildReviewsBottomSheet(context),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(18.0),
+          topRight: Radius.circular(18.0),
         ),
       ),
+    );
+  }
+
+  Widget _buildReviewsBottomSheet(BuildContext context) {
+    var provider = context.read<ReviewProvider>();
+    return WriteReviewScreen(
+      provider: provider,
     );
   }
 }
