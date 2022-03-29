@@ -8,7 +8,9 @@ class AuthInfoInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    options.headers = _authInfoHolder.authInfo?.toHeaders();
+    if (_authInfoHolder.authInfo != null) {
+      options.headers.addAll(_authInfoHolder.authInfo!.toHeaders().cast());
+    }
     super.onRequest(options, handler);
   }
 }
