@@ -42,4 +42,16 @@ class ShowsRepositoryImpl implements ShowsRepository {
 
     return jsonArray.map((review) => Review.fromJson(review)).toList();
   }
+
+  @override
+  Future<Review> submitReviewForShow({required UserReview userReview}) async {
+    final response = await _dio.post(
+      '/reviews',
+      data: userReview.toJson(),
+    );
+
+    final reviewJson = response.data['review'];
+
+    return Review.fromJson(reviewJson);
+  }
 }
