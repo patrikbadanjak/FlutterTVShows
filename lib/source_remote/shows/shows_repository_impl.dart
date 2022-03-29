@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:tv_shows/common/models/review.dart';
 import 'package:tv_shows/common/models/show.dart';
+import 'package:tv_shows/common/models/user_review.dart';
 import 'package:tv_shows/common/utility/interceptor/auth_info_interceptor.dart';
 import 'package:tv_shows/common/utility/interceptor/error_extractor_interceptor.dart';
 import 'package:tv_shows/domain/data_holder/auth_info_holder.dart';
