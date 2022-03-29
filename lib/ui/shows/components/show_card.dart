@@ -32,7 +32,7 @@ class ShowCard extends StatelessWidget {
                       topRight: Radius.circular(6.0),
                     ),
                     image: DecorationImage(
-                      image: AssetImage(show.imageUrl),
+                      image: Image.network(show.imageUrl).image,
                       fit: BoxFit.cover,
                     ),
                   ),

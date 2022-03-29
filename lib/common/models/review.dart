@@ -1,29 +1,28 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'package:tv_shows/common/models/user.dart';
+
+part 'review.g.dart';
+
+@JsonSerializable(createToJson: false)
 class Review {
+  @JsonKey(fromJson: _stringToInt)
+  int id;
   String comment;
   int rating;
-  String userEmail;
-  String imageUrl;
 
-  Review({required this.comment, required this.rating, required this.userEmail, required this.imageUrl});
+  @JsonKey(name: 'show_id')
+  int showId;
+  User user;
 
-  static final allReviews = [
-    Review(
-      comment: 'Like soooo goood omfg 🥵🥵',
-      rating: 5,
-      userEmail: 'davolimkrvnijevodakakosiznao@mail.com',
-      imageUrl: 'assets/images/ic_profile_placeholder.png',
-    ),
-    Review(
-      comment: 'Brutalno',
-      rating: 5,
-      userEmail: 'krvnijevodaobozavatelj@mail.com',
-      imageUrl: 'assets/images/ic_profile_placeholder.png',
-    ),
-    Review(
-      comment: '',
-      rating: 5,
-      userEmail: 'anon@mail.com',
-      imageUrl: 'assets/images/ic_profile_placeholder.png',
-    ),
-  ];
+  Review({
+    required this.id,
+    required this.comment,
+    required this.rating,
+    required this.showId,
+    required this.user,
+  });
+
+  factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
+
+  static int _stringToInt(String number) => number.isEmpty ? -1 : int.parse(number);
 }

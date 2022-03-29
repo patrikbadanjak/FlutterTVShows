@@ -19,16 +19,25 @@ class ReviewListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             //CircleAvatar bacao error stalno
-            Image.asset(
-              Assets.images.icProfilePlaceholder.path,
-              width: 50.0,
-              height: 50.0,
-            ),
+            review.user.imageUrl != null
+                ? Image.network(
+                    review.user.imageUrl!,
+                    width: 50.0,
+                    height: 50.0,
+                    loadingBuilder: (context, image, chunk) => Image.asset(
+                      Assets.images.icProfilePlaceholder.path,
+                    ),
+                  )
+                : Image.asset(
+                    Assets.images.icProfilePlaceholder.path,
+                    width: 50.0,
+                    height: 50.0,
+                  ),
             const SizedBox(width: 17.0),
             Expanded(
               flex: 3,
               child: Text(
-                review.userEmail,
+                review.user.email,
                 style: GoogleFonts.roboto(
                   fontSize: 15.0,
                   fontWeight: FontWeight.w500,

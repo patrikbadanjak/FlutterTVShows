@@ -1,11 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:tv_shows/common/utility/state/request_provider.dart';
-import 'package:tv_shows/domain/interactor/login_register_interactor/login_register_interactor.dart';
 
 import '../../../common/models/user.dart';
+import '../../../domain/interactor/login_register_interactor/login_register_interactor.dart';
 
-class LoginScreenProvider extends RequestProvider<User> {
-  LoginScreenProvider(this._loginRegisterInteractor);
+class RegisterScreenProvider extends RequestProvider<User> {
+  RegisterScreenProvider(this._loginRegisterInteractor);
 
   final LoginRegisterInteractor _loginRegisterInteractor;
 
@@ -17,6 +19,7 @@ class LoginScreenProvider extends RequestProvider<User> {
   String _email = '';
   String _password = '';
   bool _formValid = false;
+
   String _errorMessage = '';
 
   String get email => _email;
@@ -45,15 +48,16 @@ class LoginScreenProvider extends RequestProvider<User> {
     super.dispose();
   }
 
-  Future<User?> onLoginPressed() async {
+  Future<User?> onRegisterPressed() async {
     if (_formValid) {
       try {
-        return await _loginRegisterInteractor.loginUser(_email, _password);
+        return await _loginRegisterInteractor.registerUser(_email, _password);
       } on Exception catch (e) {
         _errorMessage = e.toString();
         notifyListeners();
       }
     }
+
     return null;
   }
 }

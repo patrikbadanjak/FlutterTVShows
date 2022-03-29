@@ -1,21 +1,21 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tv_shows/ui/login_register/components/components.dart';
-import 'package:tv_shows/ui/login_register/provider/login_screen_provider.dart';
-import 'package:tv_shows/ui/login_register/screens/register_screen.dart';
+import 'package:tv_shows/ui/login_register/screens/login_screen.dart';
 import 'package:tv_shows/ui/welcome_screen.dart';
 
 import '../../../common/utility/state/consumer_listener.dart';
+import '../provider/register_screen_provider.dart';
+import 'password_input_field.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({Key? key}) : super(key: key);
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _RegisterFormState extends State<RegisterForm> {
   bool _isLoading = false;
 
   String? _validateEmail(String value) {
@@ -30,11 +30,10 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
-  Future<void> _submitHandler(BuildContext context, LoginScreenProvider provider) async {
+  Future<void> _submitHandler(BuildContext context, RegisterScreenProvider provider) async {
     setState(() => _isLoading = true);
-    var result = await provider.onLoginPressed();
+    var result = await provider.onRegisterPressed();
     setState(() => _isLoading = false);
-
     if (result != null) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
@@ -42,28 +41,25 @@ class _LoginFormState extends State<LoginForm> {
         ),
       );
     } else {
-      _buildAlertDialog(context, 'Login failed, please try again.');
+      _buildAlertDialog(context, 'Registration failed, please try again.');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return ConsumerListener<LoginScreenProvider>(
+    return ConsumerListener<RegisterScreenProvider>(
       listener: (context, provider) async {
         if (provider.errorMessage.isNotEmpty) {
           await showDialog(
             context: context,
-            builder: (context) => _buildAlertDialog(
-              context,
-              provider.errorMessage,
-            ),
+            builder: (context) => _buildAlertDialog(context, provider.errorMessage),
           );
           provider.errorMessage = '';
         }
       },
       builder: (
         BuildContext context,
-        LoginScreenProvider provider,
+        RegisterScreenProvider provider,
       ) {
         return Form(
           key: provider.formKey,
@@ -75,7 +71,7 @@ class _LoginFormState extends State<LoginForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Login',
+                      'Register',
                       style: GoogleFonts.roboto(
                         color: Colors.white,
                         fontWeight: FontWeight.w900,
@@ -84,7 +80,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     const SizedBox(height: 16.0),
                     Text(
-                      'In order to continue, please log in',
+                      'In order to continue, please register',
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: 26.0),
@@ -107,21 +103,21 @@ class _LoginFormState extends State<LoginForm> {
                     PasswordInputField(
                       labelText: 'Password',
                       controller: provider.passwordController,
-                      validated: false,
+                      validated: true,
                       onChanged: (value) => provider.updatePassword(value),
-                      onFieldSubmitted: (_) async => _submitHandler(context, provider),
+                      onFieldSubmitted: (_) async => await _submitHandler(context, provider),
                     ),
                     Center(
                       child: TextButton(
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) => const RegisterScreen(),
+                              builder: (context) => const LoginScreen(),
                             ),
                           );
                         },
                         child: const Text(
-                          'Create account',
+                          'Sign in',
                         ),
                       ),
                     ),
@@ -129,9 +125,9 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () async => _submitHandler(context, provider),
+                onPressed: () async => await _submitHandler(context, provider),
                 icon: _isLoading ? const CircularProgressIndicator() : Container(),
-                label: const Text('Login'),
+                label: const Text('Register'),
                 style: ElevatedButton.styleFrom(
                   primary: provider.formValid ? Colors.white : Colors.white.withOpacity(0.4),
                   onPrimary: provider.formValid ? Theme.of(context).primaryColor : Colors.white.withOpacity(0.7),
@@ -146,7 +142,7 @@ class _LoginFormState extends State<LoginForm> {
 
   Widget _buildAlertDialog(BuildContext context, String message) {
     return AlertDialog(
-      title: const Text('Login failed'),
+      title: const Text('Registration failed'),
       content: Text(message.isNotEmpty ? message : 'An unknown error occurred. Please try again.'),
       actions: [
         TextButton(

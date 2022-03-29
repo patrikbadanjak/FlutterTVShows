@@ -1,4 +1,6 @@
+import 'package:tv_shows/common/models/user.dart';
+
 abstract class AuthRepository {
-  Future<bool> loginUser(String email, String password);
-  Future<bool> registerUser(String email, String password);
+  Future<User> loginUser(String email, String password);
+  Future<User> registerUser(String email, String password);
 }
