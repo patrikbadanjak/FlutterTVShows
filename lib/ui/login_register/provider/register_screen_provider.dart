@@ -2,13 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:tv_shows/common/utility/state/request_provider.dart';
+import 'package:tv_shows/source_remote/auth/auth_repository.dart';
 
 import '../../../common/models/user.dart';
 
 class RegisterScreenProvider extends RequestProvider<User> {
-  RegisterScreenProvider(this._loginRegisterInteractor);
+  RegisterScreenProvider(this._authRepository);
 
-  final LoginRegisterInteractor _loginRegisterInteractor;
+  final AuthRepository _authRepository;
 
   final formKey = GlobalKey<FormState>();
 
