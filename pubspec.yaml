@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_secure_storage: ^5.0.2
   flutter_native_splash: ^2.1.2+1
   flutter_rating_bar: ^4.0.0
   cached_network_image: ^3.2.0
