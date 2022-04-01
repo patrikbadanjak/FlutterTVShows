@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tv_shows/ui/show_details/components/review_list_item.dart';
+import 'package:tv_shows/ui/show_details/components/show_rating.dart';
 import 'package:tv_shows/ui/show_details/provider/review_provider.dart';
 
 import '../../../common/models/review.dart';
-import 'show_rating.dart';
+import '../../../common/utility/state/consumer_listener.dart';
 
 class ShowReviews extends StatelessWidget {
   const ShowReviews({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ReviewProvider>(
-      builder: (context, provider, child) {
+    return ConsumerListener<ReviewProvider>(
+      listener: (context, provider) {},
+      builder: (context, provider) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -23,7 +24,7 @@ class ShowReviews extends StatelessWidget {
             ),
             const SizedBox(height: 16.0),
             FutureBuilder(
-              future: provider.getReviewsForShow(),
+              future: provider.reviews,
               builder: (context, AsyncSnapshot<List<Review>?> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
@@ -31,7 +32,9 @@ class ShowReviews extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ShowRating(
-                            averageRating: provider.show.averageRating, numOfReviews: provider.show.numOfReviews),
+                          averageRating: provider.show.averageRating,
+                          numOfReviews: provider.show.numOfReviews,
+                        ),
                         ListView.separated(
                           primary: false,
                           shrinkWrap: true,

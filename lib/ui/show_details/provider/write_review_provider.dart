@@ -43,5 +43,7 @@ class WriteReviewProvider extends RequestProvider<Review> {
         );
       },
     );
+
+    _reviewProvider.fetchReviews();
   }
 }
