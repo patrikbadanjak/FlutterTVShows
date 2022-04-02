@@ -2,13 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:tv_shows/common/models/user.dart';
 import 'package:tv_shows/common/utility/interceptor/auth_info_interceptor.dart';
 import 'package:tv_shows/common/utility/interceptor/error_extractor_interceptor.dart';
-import 'package:tv_shows/domain/data_holder/auth_info_holder.dart';
+import 'package:tv_shows/domain/data_holder/storage_repository.dart';
 import 'package:tv_shows/source_remote/auth/auth_repository.dart';
 
 import '../../common/utility/auth_info.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  AuthRepositoryImpl(AuthInfoHolder authInfoHolder) : _authInfoHolder = authInfoHolder {
+  AuthRepositoryImpl(StorageRepository authInfoHolder) : _authInfoHolder = authInfoHolder {
     _dio = Dio(
       BaseOptions(
         baseUrl: 'https://tv-shows.infinum.academy',
@@ -24,7 +24,7 @@ class AuthRepositoryImpl implements AuthRepository {
     ]);
   }
 
-  final AuthInfoHolder _authInfoHolder;
+  final StorageRepository _authInfoHolder;
   late final Dio _dio;
 
   @override
