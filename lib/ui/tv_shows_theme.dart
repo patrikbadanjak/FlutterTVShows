@@ -87,6 +87,7 @@ class TVShowsTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(const Color(0xA852368C)),
           backgroundColor: MaterialStateProperty.all(Colors.white),
           foregroundColor: MaterialStateProperty.all(const Color(0xFF52368C)),
           minimumSize: MaterialStateProperty.all(const Size.fromHeight(45.0)),
