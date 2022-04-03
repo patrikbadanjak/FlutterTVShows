@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:tv_shows/common/utility/state/request_provider.dart';
-import 'package:tv_shows/domain/interactor/login_register_interactor/login_register_interactor.dart';
+import 'package:tv_shows/source_remote/auth/auth_repository.dart';
 
 import '../../../common/models/user.dart';
 
 class LoginScreenProvider extends RequestProvider<User> {
-  LoginScreenProvider(this._loginRegisterInteractor);
+  LoginScreenProvider(this._authRepository);
 
-  final LoginRegisterInteractor _loginRegisterInteractor;
+  final AuthRepository _authRepository;
 
   final formKey = GlobalKey<FormState>();
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
   String _email = '';
-  String _password = '';
-  bool _formValid = false;
-  String _errorMessage = '';
-
   String get email => _email;
 
-  String get errorMessage => _errorMessage;
-  set errorMessage(String value) => _errorMessage = value;
+  String _password = '';
 
+  bool _formValid = false;
   bool get formValid => _formValid;
 
   void updateEmail(String email) {
@@ -38,22 +31,12 @@ class LoginScreenProvider extends RequestProvider<User> {
     notifyListeners();
   }
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  Future<User?> onLoginPressed() async {
+  Future<void> onLoginPressed() async {
     if (_formValid) {
-      try {
-        return await _loginRegisterInteractor.loginUser(_email, _password);
-      } on Exception catch (e) {
-        _errorMessage = e.toString();
-        notifyListeners();
-      }
+      await executeRequest(
+        requestBuilder: () async => await _authRepository.loginUser(_email, _password),
+      );
     }
-    return null;
+    reset();
   }
 }

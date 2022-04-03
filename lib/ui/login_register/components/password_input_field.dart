@@ -4,7 +4,7 @@ import 'package:tv_shows/gen/assets.gen.dart';
 class PasswordInputField extends StatefulWidget {
   final String labelText;
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final bool validated;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onFieldSubmitted;
@@ -13,7 +13,7 @@ class PasswordInputField extends StatefulWidget {
     Key? key,
     required this.labelText,
     this.hintText = '',
-    required this.controller,
+    this.controller,
     this.validated = false,
     this.onFieldSubmitted,
     this.onChanged,

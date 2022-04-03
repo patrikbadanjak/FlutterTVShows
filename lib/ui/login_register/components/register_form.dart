@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tv_shows/ui/login_register/components/error_dialog.dart';
 import 'package:tv_shows/ui/login_register/screens/login_screen.dart';
 import 'package:tv_shows/ui/welcome_screen.dart';
 
@@ -8,15 +9,8 @@ import '../../../common/utility/state/consumer_listener.dart';
 import '../provider/register_screen_provider.dart';
 import 'password_input_field.dart';
 
-class RegisterForm extends StatefulWidget {
+class RegisterForm extends StatelessWidget {
   const RegisterForm({Key? key}) : super(key: key);
-
-  @override
-  State<RegisterForm> createState() => _RegisterFormState();
-}
-
-class _RegisterFormState extends State<RegisterForm> {
-  bool _isLoading = false;
 
   String? _validateEmail(String value) {
     if (value.isEmpty) {
@@ -30,32 +24,28 @@ class _RegisterFormState extends State<RegisterForm> {
     }
   }
 
-  Future<void> _submitHandler(BuildContext context, RegisterScreenProvider provider) async {
-    setState(() => _isLoading = true);
-    var result = await provider.onRegisterPressed();
-    setState(() => _isLoading = false);
-    if (result != null) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => WelcomeScreen(email: result.email),
-        ),
-      );
-    } else {
-      _buildAlertDialog(context, 'Registration failed, please try again.');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return ConsumerListener<RegisterScreenProvider>(
       listener: (context, provider) async {
-        if (provider.errorMessage.isNotEmpty) {
-          await showDialog(
-            context: context,
-            builder: (context) => _buildAlertDialog(context, provider.errorMessage),
-          );
-          provider.errorMessage = '';
-        }
+        provider.state.maybeWhen(
+          orElse: () {},
+          failure: (exception) {
+            showDialog(
+              context: context,
+              builder: (_) => ErrorDialog(
+                message: '$exception',
+              ),
+            );
+          },
+          success: (user) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => WelcomeScreen(email: user.email),
+              ),
+            );
+          },
+        );
       },
       builder: (
         BuildContext context,
@@ -87,7 +77,6 @@ class _RegisterFormState extends State<RegisterForm> {
                     TextFormField(
                       autofocus: true,
                       keyboardType: TextInputType.emailAddress,
-                      controller: provider.emailController,
                       style: const TextStyle(
                         color: Colors.white,
                       ),
@@ -102,10 +91,9 @@ class _RegisterFormState extends State<RegisterForm> {
                     const SizedBox(height: 24.0),
                     PasswordInputField(
                       labelText: 'Password',
-                      controller: provider.passwordController,
                       validated: true,
                       onChanged: (value) => provider.updatePassword(value),
-                      onFieldSubmitted: (_) async => await _submitHandler(context, provider),
+                      onFieldSubmitted: (_) async => await provider.onRegisterPressed(),
                     ),
                     Center(
                       child: TextButton(
@@ -125,8 +113,11 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () async => await _submitHandler(context, provider),
-                icon: _isLoading ? const CircularProgressIndicator() : Container(),
+                onPressed: () async => await provider.onRegisterPressed(),
+                icon: provider.state.maybeWhen(
+                  orElse: () => Container(),
+                  loading: () => const CircularProgressIndicator(),
+                ),
                 label: const Text('Register'),
                 style: ElevatedButton.styleFrom(
                   primary: provider.formValid ? Colors.white : Colors.white.withOpacity(0.4),
@@ -137,29 +128,6 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildAlertDialog(BuildContext context, String message) {
-    return AlertDialog(
-      title: const Text('Registration failed'),
-      content: Text(message.isNotEmpty ? message : 'An unknown error occurred. Please try again.'),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Ok'),
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
-            textStyle: MaterialStateProperty.all(
-              Theme.of(context).textTheme.bodyText1?.copyWith(
-                    decoration: TextDecoration.none,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2.5,
-                  ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

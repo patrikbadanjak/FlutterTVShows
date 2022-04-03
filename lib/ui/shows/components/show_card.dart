@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tv_shows/common/models/show.dart';
 
@@ -32,7 +33,7 @@ class ShowCard extends StatelessWidget {
                       topRight: Radius.circular(6.0),
                     ),
                     image: DecorationImage(
-                      image: Image.network(show.imageUrl).image,
+                      image: CachedNetworkImageProvider(show.imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),

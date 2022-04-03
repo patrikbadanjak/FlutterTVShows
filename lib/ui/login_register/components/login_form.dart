@@ -7,16 +7,10 @@ import 'package:tv_shows/ui/login_register/screens/register_screen.dart';
 import 'package:tv_shows/ui/welcome_screen.dart';
 
 import '../../../common/utility/state/consumer_listener.dart';
+import 'error_dialog.dart';
 
-class LoginForm extends StatefulWidget {
+class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);
-
-  @override
-  State<LoginForm> createState() => _LoginFormState();
-}
-
-class _LoginFormState extends State<LoginForm> {
-  bool _isLoading = false;
 
   String? _validateEmail(String value) {
     if (value.isEmpty) {
@@ -30,36 +24,26 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
-  Future<void> _submitHandler(BuildContext context, LoginScreenProvider provider) async {
-    setState(() => _isLoading = true);
-    var result = await provider.onLoginPressed();
-    setState(() => _isLoading = false);
-
-    if (result != null) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => WelcomeScreen(email: result.email),
-        ),
-      );
-    } else {
-      _buildAlertDialog(context, 'Login failed, please try again.');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return ConsumerListener<LoginScreenProvider>(
-      listener: (context, provider) async {
-        if (provider.errorMessage.isNotEmpty) {
-          await showDialog(
-            context: context,
-            builder: (context) => _buildAlertDialog(
-              context,
-              provider.errorMessage,
-            ),
-          );
-          provider.errorMessage = '';
-        }
+      listener: (context, provider) {
+        provider.state.maybeWhen(
+          orElse: () {},
+          failure: (exception) {
+            showDialog(
+              context: context,
+              builder: (context) => ErrorDialog(message: '$exception'),
+            );
+          },
+          success: (user) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (_) => WelcomeScreen(email: user.email),
+              ),
+            );
+          },
+        );
       },
       builder: (
         BuildContext context,
@@ -91,7 +75,6 @@ class _LoginFormState extends State<LoginForm> {
                     TextFormField(
                       autofocus: true,
                       keyboardType: TextInputType.emailAddress,
-                      controller: provider.emailController,
                       style: const TextStyle(
                         color: Colors.white,
                       ),
@@ -106,10 +89,9 @@ class _LoginFormState extends State<LoginForm> {
                     const SizedBox(height: 24.0),
                     PasswordInputField(
                       labelText: 'Password',
-                      controller: provider.passwordController,
                       validated: false,
                       onChanged: (value) => provider.updatePassword(value),
-                      onFieldSubmitted: (_) async => _submitHandler(context, provider),
+                      onFieldSubmitted: (_) async => await provider.onLoginPressed(),
                     ),
                     Center(
                       child: TextButton(
@@ -129,8 +111,11 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () async => _submitHandler(context, provider),
-                icon: _isLoading ? const CircularProgressIndicator() : Container(),
+                onPressed: () async => await provider.onLoginPressed(),
+                icon: provider.state.maybeWhen(
+                  orElse: () => Container(),
+                  loading: () => const CircularProgressIndicator(),
+                ),
                 label: const Text('Login'),
                 style: ElevatedButton.styleFrom(
                   primary: provider.formValid ? Colors.white : Colors.white.withOpacity(0.4),
@@ -141,29 +126,6 @@ class _LoginFormState extends State<LoginForm> {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildAlertDialog(BuildContext context, String message) {
-    return AlertDialog(
-      title: const Text('Login failed'),
-      content: Text(message.isNotEmpty ? message : 'An unknown error occurred. Please try again.'),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Ok'),
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
-            textStyle: MaterialStateProperty.all(
-              Theme.of(context).textTheme.bodyText1?.copyWith(
-                    decoration: TextDecoration.none,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2.5,
-                  ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

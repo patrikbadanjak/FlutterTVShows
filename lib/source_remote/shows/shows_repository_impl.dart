@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:tv_shows/common/models/review.dart';
 import 'package:tv_shows/common/models/show.dart';
+import 'package:tv_shows/common/models/user_review.dart';
 import 'package:tv_shows/common/utility/interceptor/auth_info_interceptor.dart';
 import 'package:tv_shows/common/utility/interceptor/error_extractor_interceptor.dart';
 import 'package:tv_shows/domain/data_holder/auth_info_holder.dart';
@@ -15,11 +16,11 @@ class ShowsRepositoryImpl implements ShowsRepository {
     );
 
     final authInfoInterceptor = AuthInfoInterceptor(authInfoHolder);
-    final errorExctractorInterceptor = ErrorExtractorInterceptor();
+    final errorExtractorInterceptor = ErrorExtractorInterceptor();
 
     _dio.interceptors.addAll([
       authInfoInterceptor,
-      errorExctractorInterceptor,
+      errorExtractorInterceptor,
     ]);
   }
 
@@ -41,5 +42,17 @@ class ShowsRepositoryImpl implements ShowsRepository {
     final List jsonArray = response.data['reviews'];
 
     return jsonArray.map((review) => Review.fromJson(review)).toList();
+  }
+
+  @override
+  Future<Review> submitReviewForShow({required UserReview userReview}) async {
+    final response = await _dio.post(
+      '/reviews',
+      data: userReview.toJson(),
+    );
+
+    final reviewJson = response.data['review'];
+
+    return Review.fromJson(reviewJson);
   }
 }

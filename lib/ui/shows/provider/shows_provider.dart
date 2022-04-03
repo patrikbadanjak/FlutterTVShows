@@ -1,18 +1,14 @@
-import 'package:tv_shows/common/models/review.dart';
 import 'package:tv_shows/common/models/show.dart';
 import 'package:tv_shows/common/utility/state/request_provider.dart';
 import 'package:tv_shows/source_remote/shows/shows_repository.dart';
 
 class ShowsProvider extends RequestProvider<Show> {
-  ShowsProvider(this.repository);
+  ShowsProvider(this._repository);
 
-  ShowsRepository repository;
+  final ShowsRepository _repository;
 
   bool _showsHidden = false;
   bool get showsHidden => _showsHidden;
-
-  Show? _selectedShow;
-  Show? get selectedShow => _selectedShow;
 
   String _errorMessage = '';
   String get errorMessage => _errorMessage;
@@ -22,24 +18,9 @@ class ShowsProvider extends RequestProvider<Show> {
     notifyListeners();
   }
 
-  void onShowClicked(Show show) {
-    _selectedShow = show;
-  }
-
   Future<List<Show>?> get shows async {
     try {
-      return await repository.getShows();
-    } on Exception catch (e) {
-      _errorMessage = e.toString();
-      notifyListeners();
-    }
-
-    return null;
-  }
-
-  Future<List<Review>?> get reviews async {
-    try {
-      return await repository.getReviewsForShow(_selectedShow?.id ?? -1);
+      return await _repository.getShows();
     } on Exception catch (e) {
       _errorMessage = e.toString();
       notifyListeners();
