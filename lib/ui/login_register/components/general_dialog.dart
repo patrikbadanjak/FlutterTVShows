@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ErrorDialog extends StatelessWidget {
-  const ErrorDialog({Key? key, required this.message}) : super(key: key);
+class GeneralDialog extends StatelessWidget {
+  const GeneralDialog({Key? key, required this.title, required this.message}) : super(key: key);
 
+  final String title;
   final String message;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Login failed'),
+      title: Text(title),
       content: Text(message.isNotEmpty ? message : 'An unknown error occurred. Please try again.'),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
