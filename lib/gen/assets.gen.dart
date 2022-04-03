@@ -21,6 +21,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/ic_profile_placeholder.png
   AssetGenImage get icProfilePlaceholder => const AssetGenImage('assets/images/ic_profile_placeholder.png');
 
+  /// File path: assets/images/ic_profile_placeholder_large.png
+  AssetGenImage get icProfilePlaceholderLarge => const AssetGenImage('assets/images/ic_profile_placeholder_large.png');
+
   $AssetsImagesLoginRegisterScreenGen get loginRegisterScreen => const $AssetsImagesLoginRegisterScreenGen();
 
   /// File path: assets/images/logo_horizontal_white.svg
