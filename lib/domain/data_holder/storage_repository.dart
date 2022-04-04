@@ -15,10 +15,12 @@ class StorageRepository {
   set authInfo(value) {
     _authInfo = value;
 
-    _secureStorage.write(key: _accessToken, value: _authInfo?.accessToken);
-    _secureStorage.write(key: _client, value: _authInfo?.client);
-    _secureStorage.write(key: _tokenType, value: _authInfo?.tokenType);
-    _secureStorage.write(key: _uid, value: _authInfo?.uid);
+    if (value != null) {
+      _secureStorage.write(key: _accessToken, value: _authInfo?.accessToken);
+      _secureStorage.write(key: _client, value: _authInfo?.client);
+      _secureStorage.write(key: _tokenType, value: _authInfo?.tokenType);
+      _secureStorage.write(key: _uid, value: _authInfo?.uid);
+    }
   }
 
   Future<AuthInfo?> get authInfo async {
@@ -44,5 +46,10 @@ class StorageRepository {
     }
 
     return null;
+  }
+
+  Future<void> deleteUserData() async {
+    await _secureStorage.deleteAll();
+    _authInfo = null;
   }
 }
