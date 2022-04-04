@@ -21,6 +21,7 @@ class ShowList extends StatelessWidget {
             builder: (context) {
               return AlertDialog(
                 title: const Text('Error'),
+                content: Text(provider.errorMessage),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context),
