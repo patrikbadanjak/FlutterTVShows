@@ -25,16 +25,19 @@ class ShowCard extends StatelessWidget {
             children: [
               Flexible(
                 flex: 2,
-                child: Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(6.0),
-                      topRight: Radius.circular(6.0),
-                    ),
-                    image: DecorationImage(
-                      image: CachedNetworkImageProvider(show.imageUrl),
-                      fit: BoxFit.cover,
+                child: Hero(
+                  tag: 'show_image${show.id}',
+                  child: Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(6.0),
+                        topRight: Radius.circular(6.0),
+                      ),
+                      image: DecorationImage(
+                        image: CachedNetworkImageProvider(show.imageUrl),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

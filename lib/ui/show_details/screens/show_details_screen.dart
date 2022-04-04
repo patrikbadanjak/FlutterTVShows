@@ -55,9 +55,12 @@ class ShowDetailsScreen extends StatelessWidget {
                   expandedHeight: 220.0,
                   titleTextStyle: Theme.of(context).textTheme.headline5,
                   flexibleSpace: FlexibleSpaceBar(
-                    background: CachedNetworkImage(
-                      imageUrl: show.imageUrl,
-                      fit: BoxFit.cover,
+                    background: Hero(
+                      tag: 'show_image${show.id}',
+                      child: CachedNetworkImage(
+                        imageUrl: show.imageUrl,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     title: Text(
                       show.name,
