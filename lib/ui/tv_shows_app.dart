@@ -26,7 +26,7 @@ class TVShowsApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (_) => StorageRepository()),
-        Provider<AuthRepository>(
+        ChangeNotifierProvider<AuthRepository>(
           create: (context) => AuthRepositoryImpl(context.read<StorageRepository>()),
         ),
         Provider<ShowsRepository>(
