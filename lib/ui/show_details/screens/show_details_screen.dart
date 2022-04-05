@@ -111,7 +111,7 @@ class ShowDetailsScreen extends StatelessWidget {
     );
   }
 
-  Future<void> showReviews(BuildContext context) async {
+  Future<void> _showReviewsBottomSheet(BuildContext context) async {
     var result = await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
