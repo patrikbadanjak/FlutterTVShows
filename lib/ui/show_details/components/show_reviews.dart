@@ -7,7 +7,11 @@ import '../../../common/models/review.dart';
 import '../../../common/utility/state/consumer_listener.dart';
 
 class ShowReviews extends StatelessWidget {
-  const ShowReviews({Key? key}) : super(key: key);
+  const ShowReviews({Key? key, required animationController})
+      : _animationController = animationController,
+        super(key: key);
+
+  final AnimationController _animationController;
 
   @override
   Widget build(BuildContext context) {
