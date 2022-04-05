@@ -87,14 +87,24 @@ class TVShowsTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(const Color(0xA852368C)),
+          backgroundColor: MaterialStateProperty.all(Colors.white),
+          foregroundColor: MaterialStateProperty.all(const Color(0xFF52368C)),
+          minimumSize: MaterialStateProperty.all(const Size.fromHeight(45.0)),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
             ),
           ),
-          padding: MaterialStateProperty.all(
-            const EdgeInsets.symmetric(vertical: 0.0, horizontal: 25.0),
+          side: MaterialStateProperty.all(
+            const BorderSide(
+              color: Color(0xFF52368C),
+              width: 2.0,
+            ),
           ),
+          elevation: MaterialStateProperty.all(0.0),
+          alignment: Alignment.center,
+          textStyle: MaterialStateProperty.all(lightTextTheme.button),
         ),
       ),
       textButtonTheme: TextButtonThemeData(

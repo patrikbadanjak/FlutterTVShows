@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tv_shows/ui/login_register/components/error_dialog.dart';
+import 'package:tv_shows/ui/login_register/components/general_dialog.dart';
 import 'package:tv_shows/ui/login_register/screens/login_screen.dart';
 import 'package:tv_shows/ui/welcome_screen.dart';
 
@@ -33,7 +33,8 @@ class RegisterForm extends StatelessWidget {
           failure: (exception) {
             showDialog(
               context: context,
-              builder: (_) => ErrorDialog(
+              builder: (_) => GeneralDialog(
+                title: 'Registration failed',
                 message: '$exception',
               ),
             );

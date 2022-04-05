@@ -7,7 +7,7 @@ import 'package:tv_shows/ui/login_register/screens/register_screen.dart';
 import 'package:tv_shows/ui/welcome_screen.dart';
 
 import '../../../common/utility/state/consumer_listener.dart';
-import 'error_dialog.dart';
+import 'general_dialog.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ class LoginForm extends StatelessWidget {
           failure: (exception) {
             showDialog(
               context: context,
-              builder: (context) => ErrorDialog(message: '$exception'),
+              builder: (context) => GeneralDialog(title: 'Login failed', message: '$exception'),
             );
           },
           success: (user) {

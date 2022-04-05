@@ -12,8 +12,17 @@ import 'package:flutter/services.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/app_icon-adaptive.png
+  AssetGenImage get appIconAdaptive => const AssetGenImage('assets/images/app_icon-adaptive.png');
+
+  /// File path: assets/images/app_icon.png
+  AssetGenImage get appIcon => const AssetGenImage('assets/images/app_icon.png');
+
   /// File path: assets/images/ic_profile_placeholder.png
   AssetGenImage get icProfilePlaceholder => const AssetGenImage('assets/images/ic_profile_placeholder.png');
+
+  /// File path: assets/images/ic_profile_placeholder_large.png
+  AssetGenImage get icProfilePlaceholderLarge => const AssetGenImage('assets/images/ic_profile_placeholder_large.png');
 
   $AssetsImagesLoginRegisterScreenGen get loginRegisterScreen => const $AssetsImagesLoginRegisterScreenGen();
 
@@ -21,6 +30,9 @@ class $AssetsImagesGen {
   SvgGenImage get logoHorizontalWhite => const SvgGenImage('assets/images/logo_horizontal_white.svg');
 
   $AssetsImagesShowsGen get shows => const $AssetsImagesShowsGen();
+
+  /// File path: assets/images/splash_logo.png
+  AssetGenImage get splashLogo => const AssetGenImage('assets/images/splash_logo.png');
 
   /// File path: assets/images/welcome_icon.svg
   SvgGenImage get welcomeIcon => const SvgGenImage('assets/images/welcome_icon.svg');

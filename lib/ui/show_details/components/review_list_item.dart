@@ -18,7 +18,6 @@ class ReviewListItem extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //CircleAvatar bacao error stalno
             review.user.imageUrl != null
                 ? Image.network(
                     review.user.imageUrl!,
