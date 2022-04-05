@@ -32,30 +32,38 @@ class ShowReviews extends StatelessWidget {
               builder: (context, AsyncSnapshot<List<Review>?> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ShowRating(
-                          averageRating: provider.show.averageRating,
-                          numOfReviews: provider.show.numOfReviews,
-                        ),
-                        ListView.separated(
-                          primary: false,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            final Review review = snapshot.data![index];
-                            return ReviewListItem(
-                              key: Key(review.id.toString()),
-                              review: review,
-                            );
-                          },
-                          separatorBuilder: (context, index) => const Divider(
-                            indent: 10.0,
-                            endIndent: 10.0,
+                    return _OpacityTransition(
+                      controller: _animationController,
+                      interval: const Interval(
+                        0.3,
+                        0.7,
+                        curve: Curves.ease,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ShowRating(
+                            averageRating: provider.show.averageRating,
+                            numOfReviews: provider.show.numOfReviews,
                           ),
-                          itemCount: snapshot.data?.length ?? 0,
-                        ),
-                      ],
+                          ListView.separated(
+                            primary: false,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              final Review review = snapshot.data![index];
+                              return ReviewListItem(
+                                key: Key(review.id.toString()),
+                                review: review,
+                              );
+                            },
+                            separatorBuilder: (context, index) => const Divider(
+                              indent: 10.0,
+                              endIndent: 10.0,
+                            ),
+                            itemCount: snapshot.data?.length ?? 0,
+                          ),
+                        ],
+                      ),
                     );
                   } else {
                     return const SizedBox(
@@ -71,6 +79,43 @@ class ShowReviews extends StatelessWidget {
               },
             ),
           ],
+        );
+      },
+    );
+  }
+}
+
+class _OpacityTransition extends StatelessWidget {
+  _OpacityTransition({
+    Key? key,
+    required Widget child,
+    required AnimationController controller,
+    required Interval interval,
+  }) : super(key: key) {
+    _child = child;
+    _controller = controller;
+    _interval = interval;
+  }
+
+  late final Widget _child;
+  late final AnimationController _controller;
+  late final Interval _interval;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        final opacity = CurvedAnimation(parent: _controller, curve: _interval).drive(
+          Tween<double>(
+            begin: 0.25,
+            end: 1,
+          ),
+        );
+
+        return Opacity(
+          opacity: opacity.value,
+          child: _child,
         );
       },
     );
