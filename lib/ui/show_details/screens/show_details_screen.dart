@@ -8,7 +8,7 @@ import 'package:tv_shows/ui/show_details/screens/write_review_screen.dart';
 import '../../../common/models/show.dart';
 import '../components/show_reviews.dart';
 
-class ShowDetailsScreen extends StatelessWidget {
+class ShowDetailsScreen extends StatefulWidget {
   const ShowDetailsScreen({
     Key? key,
     required this.show,
@@ -38,9 +38,29 @@ class ShowDetailsScreen extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        seconds: 1,
+      ),
+    );
+
+    _controller.forward().orCancel;
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ReviewProvider>(
-      create: (_) => ReviewProvider(context.read<ShowsRepository>(), show: show),
+      create: (_) => ReviewProvider(context.read<ShowsRepository>(), show: widget.show),
       child: Builder(
         builder: (providerContext) {
           return Scaffold(
@@ -56,14 +76,14 @@ class ShowDetailsScreen extends StatelessWidget {
                   titleTextStyle: Theme.of(context).textTheme.headline5,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Hero(
-                      tag: 'show_image${show.id}',
+                      tag: 'show_image${widget.show.id}',
                       child: CachedNetworkImage(
-                        imageUrl: show.imageUrl,
+                        imageUrl: widget.show.imageUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
                     title: Text(
-                      show.name,
+                      widget.show.name,
                       style: const TextStyle(color: Colors.white),
                     ),
                     expandedTitleScale: 1.7,
