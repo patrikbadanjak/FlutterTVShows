@@ -53,7 +53,7 @@ class AuthRepositoryImpl with ChangeNotifier implements AuthRepository {
         box.get('email'),
         box.get('imageUrl') as String?,
       );
-    } on Exception catch (e) {
+    } on Exception {
       user = null;
     }
   }
