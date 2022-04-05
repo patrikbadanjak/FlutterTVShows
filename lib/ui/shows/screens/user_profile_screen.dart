@@ -11,8 +11,32 @@ import 'package:tv_shows/ui/login_register/components/general_dialog.dart';
 import 'package:tv_shows/ui/login_register/screens/login_screen.dart';
 import 'package:tv_shows/ui/shows/provider/user_profile_screen_provider.dart';
 
-class UserProfileScreen extends StatelessWidget {
+class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<UserProfileScreen> createState() => _UserProfileScreenState();
+}
+
+class _UserProfileScreenState extends State<UserProfileScreen> with TickerProviderStateMixin {
+  late final AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 800,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +98,7 @@ class UserProfileScreen extends StatelessWidget {
                                 return;
                               }
                               provider.temporaryImageFile = File(image.path);
+                              _animationController.forward();
                             },
                             child: _ProfilePicture(provider: provider),
                           ),
