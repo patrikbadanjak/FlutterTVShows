@@ -48,11 +48,7 @@ class AuthRepositoryImpl with ChangeNotifier implements AuthRepository {
   Future<void> fetchUserFromHive() async {
     try {
       final box = await Hive.openBox('user');
-      user = User(
-        box.get('id'),
-        box.get('email'),
-        box.get('imageUrl') as String?,
-      );
+      user = User.fromHive(box);
     } on Exception {
       user = null;
     }

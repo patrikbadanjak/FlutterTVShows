@@ -17,11 +17,7 @@ void main() async {
   if (await storageRepo.authInfo != null && await Hive.boxExists('user')) {
     final box = await Hive.openBox('user');
 
-    user = User(
-      box.get('id'),
-      box.get('email'),
-      box.get('imageUrl') as String?,
-    );
+    user = User.fromHive(box);
   }
 
   runApp(TVShowsApp(
