@@ -129,12 +129,6 @@ class _ProfilePictureState extends State<_ProfilePicture> with TickerProviderSta
     _currentAvatar = Image.network(
       widget.provider.user!.imageUrl!,
       fit: _fit,
-      loadingBuilder: (context, widget, _) {
-        return Image.asset(
-          Assets.images.icProfilePlaceholderLarge.path,
-          fit: _fit,
-        );
-      },
       errorBuilder: (context, object, stacktrace) {
         return Image.asset(
           Assets.images.icProfilePlaceholderLarge.path,
