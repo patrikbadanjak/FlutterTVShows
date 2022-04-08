@@ -42,7 +42,7 @@ class UserProfileScreenProvider extends RequestProvider<void> {
   }
 
   Future<void> onUpdatePressed() async {
-    executeRequest(
+    await executeRequest(
       requestBuilder: () async {
         await _authRepository
             .updateUser(
