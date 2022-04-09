@@ -29,13 +29,6 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
   void _togglePasswordVisibility() => setState(() => _obscureText = !_obscureText);
 
   String? _validatePassword(String value) {
-    // RegExp regex = RegExp(r'^'
-    //     r'(?=.*?[A-Z])'
-    //     r'(?=.*?[a-z])'
-    //     r'(?=.*?[0-9])'
-    //     r'(?=.*?[!@#\$&*~])'
-    //     r'.{8,}$');
-
     if (value.isEmpty) {
       return 'Please enter your password';
     } else if (widget.validated) {
