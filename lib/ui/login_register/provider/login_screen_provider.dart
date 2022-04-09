@@ -30,6 +30,5 @@ class LoginScreenProvider extends RequestProvider<User> {
     await executeRequest(
       requestBuilder: () async => await _authRepository.loginUser(_email, _password),
     );
-    reset();
   }
 }

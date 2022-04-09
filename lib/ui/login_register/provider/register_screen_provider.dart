@@ -27,7 +27,8 @@ class RegisterScreenProvider extends RequestProvider<User> {
   }
 
   Future<void> onRegisterPressed() async {
-    await executeRequest(requestBuilder: () async => await _authRepository.registerUser(_email, _password));
-    reset();
+    await executeRequest(
+      requestBuilder: () async => await _authRepository.registerUser(_email, _password),
+    );
   }
 }
