@@ -54,7 +54,7 @@ void main() {
       expect(loginProvider.state is RequestStateFailure, true);
     });
 
-    test('Loading state while waiting for response', () async {
+    test('Loading state while waiting for response', () {
       loginProvider.updateEmail('user@example.com');
       loginProvider.updatePassword('some_password');
 
