@@ -15,6 +15,7 @@ class LoginScreenProvider extends RequestProvider<User> {
   String get email => _email;
 
   String _password = '';
+  String get password => _password;
 
   bool _formValid = false;
   bool get formValid => _formValid;
