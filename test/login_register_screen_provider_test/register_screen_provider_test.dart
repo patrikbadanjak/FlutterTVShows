@@ -65,5 +65,14 @@ void main() {
 
       expect(provider.state is RequestStateFailure, true);
     });
+
+    test('Request state is set to loading while waiting for response', () {
+      provider.updateEmail('user@example.com');
+      provider.updatePassword('');
+
+      provider.onRegisterPressed();
+
+      expect(provider.state is RequestStateLoading, true);
+    });
   });
 }

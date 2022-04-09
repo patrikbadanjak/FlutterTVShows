@@ -83,5 +83,13 @@ void main() {
       await writeReviewProvider.onSubmitPressed();
       expect(writeReviewProvider.state is RequestStateSuccess, true);
     });
+
+    test('Request state is set to loading while waiting for respones', () {
+      writeReviewProvider.updateRating(5);
+      writeReviewProvider.updateComment('');
+
+      writeReviewProvider.onSubmitPressed();
+      expect(writeReviewProvider.state is RequestStateLoading, true);
+    });
   });
 }
