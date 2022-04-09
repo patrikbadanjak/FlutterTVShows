@@ -109,8 +109,8 @@ class _LoginFormState extends State<LoginForm> {
                         labelText: 'Password',
                         validated: false,
                         onChanged: (value) {
-                          _validateForm(context);
                           provider.updatePassword(value);
+                          _validateForm(context);
                         },
                         onFieldSubmitted: (_) async {
                           if (_formValid) {
