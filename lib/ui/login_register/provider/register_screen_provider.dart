@@ -16,6 +16,8 @@ class RegisterScreenProvider extends RequestProvider<User> {
 
   String _password = '';
 
+  String get password => _password;
+
   void updateEmail(String email) {
     _email = email.trim();
     notifyListeners();
