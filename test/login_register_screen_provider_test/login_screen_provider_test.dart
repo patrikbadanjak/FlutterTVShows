@@ -16,7 +16,7 @@ void main() {
   when(authRepoMock.loginUser(argThat(isNotEmpty), argThat(isNotEmpty))).thenAnswer(
     (_) async {
       return Future.delayed(
-        const Duration(milliseconds: 10),
+        const Duration(milliseconds: 500),
         () => User('1', 'user@example.com', null),
       );
     },
@@ -52,6 +52,14 @@ void main() {
       await loginProvider.onLoginPressed();
 
       expect(loginProvider.state is RequestStateFailure, true);
+    });
+
+    test('Loading state while waiting for response', () async {
+      loginProvider.updateEmail('user@example.com');
+      loginProvider.updatePassword('some_password');
+
+      loginProvider.onLoginPressed();
+      expect(loginProvider.state is RequestStateLoading, true);
     });
   });
 }
