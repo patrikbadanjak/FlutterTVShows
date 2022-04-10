@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  golden_toolkit: ^0.13.0
   mockito: ^5.1.0
   lottie: ^1.2.2
   image_picker: ^0.8.4+11
