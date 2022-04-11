@@ -4,7 +4,7 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:tv_shows/ui/tv_shows_theme.dart';
 
 void main() {
-  testGoldens('Outlined button with no focus renders correctly', (WidgetTester tester) async {
+  testGoldens('Outlined input field with no focus renders correctly', (WidgetTester tester) async {
     await loadAppFonts();
 
     final inputField = Container(
@@ -33,7 +33,7 @@ void main() {
     await screenMatchesGolden(tester, 'email_input_field');
   });
 
-  testGoldens('Outlined button with focus renders correctly', (WidgetTester tester) async {
+  testGoldens('Outlined input field with focus renders correctly', (WidgetTester tester) async {
     await loadAppFonts();
 
     final inputField = Container(
