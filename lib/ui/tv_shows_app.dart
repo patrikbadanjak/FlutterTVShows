@@ -6,6 +6,7 @@ import 'package:tv_shows/source_remote/auth/auth_repository_impl.dart';
 import 'package:tv_shows/source_remote/shows/shows_repository.dart';
 import 'package:tv_shows/source_remote/shows/shows_repository_impl.dart';
 import 'package:tv_shows/ui/shows/provider/shows_provider.dart';
+import 'package:tv_shows/ui/shows/provider/user_provider.dart';
 import 'package:tv_shows/ui/shows/screens/shows_screen.dart';
 import 'package:tv_shows/ui/tv_shows_theme.dart';
 

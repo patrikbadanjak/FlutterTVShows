@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:tv_shows/common/models/user.dart';
 import 'package:tv_shows/common/utility/interceptor/error_extractor_interceptor.dart';
 import 'package:tv_shows/domain/data_holder/auth_info_holder.dart';
 import 'package:tv_shows/source_remote/auth/auth_repository.dart';
+import 'package:tv_shows/ui/shows/provider/user_provider.dart';
 
 import '../../common/utility/auth_info.dart';
 import '../../common/utility/interceptor/auth_info_interceptor.dart';
@@ -31,7 +31,7 @@ class AuthRepositoryImpl implements AuthRepository {
       errorExtractorInterceptor,
     ]);
 
-    fetchUserFromHive();
+    _userProvider.fetchUserFromHive();
   }
 
   final AuthInfoHolder _authInfoHolder;
@@ -43,16 +43,6 @@ class AuthRepositoryImpl implements AuthRepository {
     box.put('id', user.id);
     box.put('email', user.email);
     box.put('imageUrl', user.imageUrl);
-  }
-
-  @override
-  Future<void> fetchUserFromHive() async {
-    try {
-      final box = await Hive.openBox('user');
-      user = User.fromHive(box);
-    } on Exception {
-      user = null;
-    }
   }
 
   @override
@@ -69,11 +59,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
     final json = response.data['user'];
 
-    user = User.fromJson(json);
+    _userProvider.user = User.fromJson(json);
 
-    await _storeUserToHive(user!);
+    await _storeUserToHive(_userProvider.user!);
 
-    return user!;
+    return _userProvider.user!;
   }
 
   @override
@@ -91,11 +81,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
     final json = response.data['user'];
 
-    user = User.fromJson(json);
+    _userProvider.user = User.fromJson(json);
 
-    await _storeUserToHive(user!);
+    await _storeUserToHive(_userProvider.user!);
 
-    return user!;
+    return _userProvider.user!;
   }
 
   @override
@@ -126,23 +116,22 @@ class AuthRepositoryImpl implements AuthRepository {
 
     final json = response.data['user'];
 
-    user = User.fromJson(json);
+    _userProvider.user = User.fromJson(json);
 
-    await _storeUserToHive(user!);
+    await _storeUserToHive(_userProvider.user!);
 
-    notifyListeners();
-
-    return user!;
+    return _userProvider.user!;
   }
 
   @override
   Future<void> logoutUser() async {
-    _deleteUserDataFromDevice();
+    _userProvider.user = null;
+    await _deleteUserDataFromDevice();
   }
 
   Future<void> _deleteUserDataFromDevice() async {
     await Hive.deleteBoxFromDisk('user');
     _authInfoHolder.deleteUserData();
-    user = null;
+    _userProvider.user = null;
   }
 }

@@ -12,6 +12,8 @@ import 'package:tv_shows/ui/login_register/components/general_dialog.dart';
 import 'package:tv_shows/ui/login_register/screens/login_screen.dart';
 import 'package:tv_shows/ui/shows/provider/user_profile_screen_provider.dart';
 
+import '../provider/user_provider.dart';
+
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({Key? key}) : super(key: key);
 
@@ -37,7 +39,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> with TickerProvid
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<UserProfileScreenProvider>(
-      create: (context) => UserProfileScreenProvider(context.read<AuthRepository>()),
+      create: (context) => UserProfileScreenProvider(
+        context.read<AuthRepository>(),
+        context.read<UserProvider>(),
+      ),
       builder: (context, child) {
         return Form(
           autovalidateMode: AutovalidateMode.onUserInteraction,

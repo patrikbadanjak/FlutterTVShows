@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tv_shows/gen/assets.gen.dart';
 import 'package:tv_shows/ui/shows/components/show_list.dart';
+import 'package:tv_shows/ui/shows/provider/user_provider.dart';
 import 'package:tv_shows/ui/shows/screens/user_profile_screen.dart';
 
 import '../../../source_remote/auth/auth_repository.dart';
@@ -35,9 +36,7 @@ class ShowsScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 5.0),
                   width: 40.0,
                   height: 40.0,
-                  child: _ProfilePicture(
-                    authRepository: provider,
-                  ),
+                  child: const _ProfilePicture(),
                 ),
                 onTap: () => _showModalBottomSheet(context),
               )
@@ -67,19 +66,16 @@ class ShowsScreen extends StatelessWidget {
 }
 
 class _ProfilePicture extends StatelessWidget {
-  const _ProfilePicture({Key? key, required this.authRepository}) : super(key: key);
-
-  final AuthRepository authRepository;
+  const _ProfilePicture({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return authRepository.user?.imageUrl != null
-        ? Image.network(
-            authRepository.user!.imageUrl!,
-            errorBuilder: (context, object, stacktrace) {
-              return Image.asset(Assets.images.icProfilePlaceholder.path);
-            },
-          )
-        : Image.asset(Assets.images.icProfilePlaceholder.path);
+    return Consumer<UserProvider>(
+      builder: (context, provider, child) {
+        return Image.network(
+          provider.user?.imageUrl ?? Assets.images.icProfilePlaceholder.path,
+        );
+      },
+    );
   }
 }
