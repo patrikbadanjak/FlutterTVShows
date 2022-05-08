@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:tv_shows/domain/data_holder/storage_repository.dart';
+import 'package:tv_shows/domain/data_holder/auth_info_holder.dart';
 
 class AuthInfoInterceptor extends Interceptor {
-  AuthInfoInterceptor(StorageRepository authInfoHolder) : _authInfoHolder = authInfoHolder;
+  AuthInfoInterceptor(AuthInfoHolder authInfoHolder) : _authInfoHolder = authInfoHolder;
 
-  final StorageRepository _authInfoHolder;
+  final AuthInfoHolder _authInfoHolder;
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {

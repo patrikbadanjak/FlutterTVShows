@@ -1,8 +1,8 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:tv_shows/common/utility/auth_info.dart';
 
-class StorageRepository {
-  StorageRepository() : _secureStorage = const FlutterSecureStorage();
+class AuthInfoHolder {
+  AuthInfoHolder() : _secureStorage = const FlutterSecureStorage();
 
   static const _accessToken = 'accessToken';
   static const _client = 'client';
@@ -32,14 +32,7 @@ class StorageRepository {
       final tokenType = await _secureStorage.read(key: _tokenType);
       final uid = await _secureStorage.read(key: _uid);
 
-      if (accessToken != null &&
-          accessToken.isNotEmpty &&
-          client != null &&
-          client.isNotEmpty &&
-          tokenType != null &&
-          tokenType.isNotEmpty &&
-          uid != null &&
-          uid.isNotEmpty) {
+      if (accessToken != null && client != null && tokenType != null && uid != null) {
         _authInfo = AuthInfo(accessToken: accessToken, client: client, tokenType: tokenType, uid: uid);
         return _authInfo;
       }

@@ -3,13 +3,13 @@ import 'package:tv_shows/common/models/review.dart';
 import 'package:tv_shows/common/models/show.dart';
 import 'package:tv_shows/common/models/user_review.dart';
 import 'package:tv_shows/common/utility/interceptor/error_extractor_interceptor.dart';
-import 'package:tv_shows/domain/data_holder/storage_repository.dart';
+import 'package:tv_shows/domain/data_holder/auth_info_holder.dart';
 import 'package:tv_shows/source_remote/shows/shows_repository.dart';
 
 import '../../common/utility/interceptor/auth_info_interceptor.dart';
 
 class ShowsRepositoryImpl implements ShowsRepository {
-  ShowsRepositoryImpl(StorageRepository authInfoHolder) {
+  ShowsRepositoryImpl(AuthInfoHolder authInfoHolder) {
     _dio = Dio(
       BaseOptions(
         baseUrl: 'https://tv-shows.infinum.academy',
